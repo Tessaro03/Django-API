@@ -1,10 +1,20 @@
 from rest_framework import serializers
 from escola.models import Aluno, Curso, Matricula
+from .validators import *
 
 class AlunoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aluno 
-        fields = ['id','nome','rg','cpf','data_nascimento']
+        fields = ['id', 'nome', 'rg', 'cpf', 'data_nascimento']
+        
+    def validate(self, data):
+        if not nome_valido(data['nome']):
+            raise serializers.ValidationError({'nome':'Somente Letras'})
+        if not rg_valido(data['rg']):
+            raise serializers.ValidationError({"rg": "Já Cadastrado"})
+        if not cpf_valido(data['cpf']):
+            raise serializers.ValidationError({'cpf':'CPF Invalido'})
+        return data 
 
 class CursoSerializer(serializers.ModelSerializer):
     class Meta:
