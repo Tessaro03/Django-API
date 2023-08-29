@@ -18,7 +18,7 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+CSRF_COOKIE_SECURE = False
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -28,7 +28,10 @@ SECRET_KEY = str(os.getenv('SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['api-escola.up.railway.app', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = ['https://api-escola.up.railway.app', 'http://127.0.0.1']
+
 
 
 # Application definition
